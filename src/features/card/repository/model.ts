@@ -44,7 +44,9 @@ const CardModel = database.define<CardInstance>(
     },
     {
         tableName: 'card',
-        timestamps: true
+        timestamps: true,
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
     }
 );
 

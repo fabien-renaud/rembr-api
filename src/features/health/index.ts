@@ -1,3 +1,2 @@
-import routes from './routes';
-
+import routes from './api';
 export default routes;
