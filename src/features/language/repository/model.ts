@@ -1,5 +1,6 @@
 import database from '../../../core/database';
 import {Model, STRING, UUID, UUIDV4} from 'sequelize';
+import FontModel from '../../font/repository/model';
 
 interface LanguageAttributes {
     id: string;
@@ -34,5 +35,8 @@ const LanguageModel = database.define<LanguageInstance>(
         timestamps: false
     }
 );
+
+// Defining Deck and Language many-to-one associations
+LanguageModel.belongsTo(FontModel, {foreignKey: 'default_font__id'});
 
 export default LanguageModel;

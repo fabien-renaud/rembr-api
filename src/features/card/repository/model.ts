@@ -1,5 +1,7 @@
 import database from '../../../core/database';
 import {Model, STRING, UUID, UUIDV4} from 'sequelize';
+import DeckModel from '../../deck/repository/model';
+import LanguageModel from '../../language/repository/model';
 
 interface CardAttributes {
     id: string;
@@ -49,5 +51,13 @@ const CardModel = database.define<CardInstance>(
         updatedAt: 'updated_at'
     }
 );
+
+// Defining Card and Deck many-to-many association
+CardModel.belongsToMany(DeckModel, {through: 'card__deck'});
+DeckModel.belongsToMany(CardModel, {through: 'card__deck'});
+
+// Defining Card and Language many-to-one associations
+CardModel.belongsTo(LanguageModel, {foreignKey: 'recto_language__id'});
+CardModel.belongsTo(LanguageModel, {foreignKey: 'verso_language__id'});
 
 export default CardModel;

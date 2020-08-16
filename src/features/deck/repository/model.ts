@@ -1,5 +1,6 @@
 import database from '../../../core/database';
 import {Model, BOOLEAN, STRING, UUID, UUIDV4} from 'sequelize';
+import LanguageModel from '../../language/repository/model';
 
 interface DeckAttributes {
     id: string;
@@ -50,5 +51,9 @@ const DeckModel = database.define<DeckInstance>(
         updatedAt: 'updated_at'
     }
 );
+
+// Defining Deck and Language many-to-one associations
+DeckModel.belongsTo(LanguageModel, {foreignKey: 'recto_language__id'});
+DeckModel.belongsTo(LanguageModel, {foreignKey: 'verso_language__id'});
 
 export default DeckModel;
