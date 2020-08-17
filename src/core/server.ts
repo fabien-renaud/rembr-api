@@ -2,7 +2,7 @@ import Hapi, {Server} from '@hapi/hapi';
 import inert from '@hapi/inert';
 import vision from '@hapi/vision';
 import {serverConfig, swaggerConfig} from './config';
-import routes from '../api/routes';
+import routes from '../features/routes';
 
 const initServer = async (): Promise<Server> => {
     const server: Server = new Hapi.Server(serverConfig);
