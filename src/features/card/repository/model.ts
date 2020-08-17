@@ -43,6 +43,5 @@ const CardModel = database.define<CardInstance>(
 
 // Defining Card and Deck many-to-many association
 CardModel.belongsTo(DeckModel, {foreignKey: 'deck__id'});
-DeckModel.hasMany(CardModel);
 
 export default CardModel;
