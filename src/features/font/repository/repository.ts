@@ -1,3 +1,4 @@
+import {DestroyOptions, UpdateOptions} from 'sequelize';
 import FontModel from './model';
 import {Font} from '../types';
 
@@ -14,14 +15,14 @@ const createFont = (font: Font): Promise<Font | null> => {
 };
 
 const updateFont = (id: string, font: Font): Promise<[number, Font[]]> => {
-    const options = {
+    const options: UpdateOptions = {
         where: {id}
     };
     return FontModel.update(font, options);
 };
 
 const deleteFont = (id: string): Promise<number> => {
-    const options = {
+    const options: DestroyOptions = {
         where: {id}
     };
     return FontModel.destroy(options);

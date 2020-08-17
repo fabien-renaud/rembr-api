@@ -1,5 +1,6 @@
 import DeckRepository from '../repository';
 import {Deck} from '../types';
+import {Card} from '../../card/types';
 
 const fetchDecks = (): Promise<Deck[]> => {
     return DeckRepository.fetchDecks();
@@ -7,6 +8,10 @@ const fetchDecks = (): Promise<Deck[]> => {
 
 const fetchDeckById = (id: string): Promise<Deck> => {
     return DeckRepository.fetchDeckById(id);
+};
+
+const fetchCardDeckById = (id: string): Promise<Card[]> => {
+    return DeckRepository.fetchCardDeckById(id);
 };
 
 const createDeck = (deck: Deck): Promise<Deck | null> => {
@@ -24,6 +29,7 @@ const deleteDeck = (id: string): Promise<number> => {
 export default {
     fetchDecks,
     fetchDeckById,
+    fetchCardDeckById,
     createDeck,
     updateDeck,
     deleteDeck

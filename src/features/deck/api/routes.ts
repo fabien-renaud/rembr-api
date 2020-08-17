@@ -42,6 +42,27 @@ const routes: ServerRoute[] = [
         }
     },
     {
+        method: 'GET',
+        path: '/decks/{id}/cards',
+        options: {
+            handler: DeckHandler.fetchCardDeckById,
+            description: 'Get deck cards by deck id',
+            notes: 'Returns cards of a deck',
+            tags: ['api', 'deck'],
+            validate: {
+                params: uuid
+            },
+            response: {
+                status: {
+                    200: deck,
+                    400: undefined,
+                    404: undefined,
+                    500: undefined
+                }
+            }
+        }
+    },
+    {
         method: 'POST',
         path: '/decks',
         options: {

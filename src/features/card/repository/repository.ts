@@ -1,3 +1,4 @@
+import {DestroyOptions, UpdateOptions} from 'sequelize';
 import CardModel from './model';
 import {Card} from '../types';
 
@@ -14,14 +15,14 @@ const createCard = (card: Card): Promise<Card | null> => {
 };
 
 const updateCard = (id: string, card: Card): Promise<[number, Card[]]> => {
-    const options = {
+    const options: UpdateOptions = {
         where: {id}
     };
     return CardModel.update(card, options);
 };
 
 const deleteCard = (id: string): Promise<number> => {
-    const options = {
+    const options: DestroyOptions = {
         where: {id}
     };
     return CardModel.destroy(options);

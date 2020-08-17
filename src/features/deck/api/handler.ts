@@ -2,6 +2,7 @@ import {Request, ResponseObject, ResponseToolkit} from '@hapi/hapi';
 import {Boom, badImplementation, conflict, notFound} from '@hapi/boom';
 import DeckController from '../controller';
 import {Deck} from '../types';
+import {Card} from '../../card/types';
 
 const fetchDecks = (
     req: Request,
@@ -21,6 +22,19 @@ const fetchDeckById = (
         .then((deck: Deck) => {
             if (!deck) return notFound();
             return h.response(deck).code(200);
+        })
+        .catch(() => notFound());
+};
+
+const fetchCardDeckById = (
+    req: Request,
+    h: ResponseToolkit
+): Promise<ResponseObject | Boom> => {
+    const id = req.params.id;
+    return DeckController.fetchCardDeckById(id)
+        .then((cards: Card[]) => {
+            if (!cards) return notFound();
+            return h.response(cards).code(200);
         })
         .catch(() => notFound());
 };
@@ -57,6 +71,7 @@ const deleteDeck = (
 export default {
     fetchDecks,
     fetchDeckById,
+    fetchCardDeckById,
     createDeck,
     updateDeck,
     deleteDeck

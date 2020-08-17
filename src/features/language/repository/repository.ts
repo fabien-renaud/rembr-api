@@ -1,3 +1,4 @@
+import {DestroyOptions, UpdateOptions} from 'sequelize';
 import LanguageModel from './model';
 import {Language} from '../types';
 
@@ -17,14 +18,14 @@ const updateLanguage = (
     id: string,
     language: Language
 ): Promise<[number, Language[]]> => {
-    const options = {
+    const options: UpdateOptions = {
         where: {id}
     };
     return LanguageModel.update(language, options);
 };
 
 const deleteLanguage = (id: string): Promise<number> => {
-    const options = {
+    const options: DestroyOptions = {
         where: {id}
     };
     return LanguageModel.destroy(options);

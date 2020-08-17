@@ -1,15 +1,12 @@
 import database from '../../../core/database';
 import {Model, STRING, UUID, UUIDV4} from 'sequelize';
 import DeckModel from '../../deck/repository/model';
-import LanguageModel from '../../language/repository/model';
 
 interface CardAttributes {
     id: string;
-    user__id: string;
+    deck__id: string;
     recto_value: string;
-    recto_language__id: string;
     verso_value: string;
-    verso_language__id: string;
 }
 
 interface CardInstance extends Model<CardAttributes>, CardAttributes {}
@@ -23,7 +20,7 @@ const CardModel = database.define<CardInstance>(
             primaryKey: true,
             allowNull: false
         },
-        user__id: {
+        deck__id: {
             type: UUID,
             allowNull: false
         },
@@ -31,16 +28,8 @@ const CardModel = database.define<CardInstance>(
             type: STRING,
             allowNull: false
         },
-        recto_language__id: {
-            type: UUID,
-            allowNull: false
-        },
         verso_value: {
             type: STRING,
-            allowNull: false
-        },
-        verso_language__id: {
-            type: UUID,
             allowNull: false
         }
     },
@@ -53,11 +42,7 @@ const CardModel = database.define<CardInstance>(
 );
 
 // Defining Card and Deck many-to-many association
-CardModel.belongsToMany(DeckModel, {through: 'card__deck'});
-DeckModel.belongsToMany(CardModel, {through: 'card__deck'});
-
-// Defining Card and Language many-to-one associations
-CardModel.belongsTo(LanguageModel, {foreignKey: 'recto_language__id'});
-CardModel.belongsTo(LanguageModel, {foreignKey: 'verso_language__id'});
+CardModel.belongsTo(DeckModel, {foreignKey: 'deck__id'});
+DeckModel.hasMany(CardModel);
 
 export default CardModel;
