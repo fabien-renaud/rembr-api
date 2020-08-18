@@ -5,7 +5,7 @@ import FontModel from '../../font/repository/model';
 interface LanguageAttributes {
     id: string;
     name: string;
-    default_font__id: string;
+    defaultFontId: string;
 }
 
 interface LanguageInstance
@@ -19,15 +19,18 @@ const LanguageModel = database.define<LanguageInstance>(
             type: UUID,
             defaultValue: UUIDV4,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
+            field: 'id'
         },
         name: {
             type: STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'name'
         },
-        default_font__id: {
+        defaultFontId: {
             type: UUID,
-            allowNull: false
+            allowNull: false,
+            field: 'default_font__id'
         }
     },
     {
@@ -37,6 +40,6 @@ const LanguageModel = database.define<LanguageInstance>(
 );
 
 // Defining Deck and Language many-to-one associations
-LanguageModel.belongsTo(FontModel, {foreignKey: 'default_font__id'});
+LanguageModel.belongsTo(FontModel, {foreignKey: 'defaultFontId'});
 
 export default LanguageModel;

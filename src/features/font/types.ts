@@ -1,6 +1,6 @@
 export type Font = {
     id: string;
-    user__id: string;
+    userId: string;
     name: string;
     source: string;
 };

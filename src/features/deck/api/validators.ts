@@ -2,20 +2,22 @@ import Joi from '@hapi/joi';
 
 export const deck: Joi.ObjectSchema = Joi.object({
     id: Joi.string().uuid().description('the deck id'),
-    user__id: Joi.string().uuid().required().description('the deck owner id'),
+    userId: Joi.string().uuid().required().description('the deck owner id'),
     name: Joi.string().required().description('the deck name'),
-    recto_language__id: Joi.string()
+    rectoLanguageId: Joi.string()
         .uuid()
         .required()
         .description('the deck recto language'),
-    verso_language__id: Joi.string()
+    versoLanguageId: Joi.string()
         .uuid()
         .required()
         .description('the deck verso language'),
-    display_recto_first: Joi.boolean()
+    displayRectoFirst: Joi.boolean()
         .required()
         .default(true)
-        .description('display recto first')
+        .description('display recto first'),
+    createdAt: Joi.date().timestamp(),
+    updatedAt: Joi.date().timestamp()
 })
     .unknown()
     .label('Deck');

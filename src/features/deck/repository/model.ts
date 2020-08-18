@@ -1,14 +1,16 @@
 import database from '../../../core/database';
-import {Model, BOOLEAN, STRING, UUID, UUIDV4} from 'sequelize';
+import {Model, BOOLEAN, DATE, STRING, UUID, UUIDV4} from 'sequelize';
 import LanguageModel from '../../language/repository/model';
 
 interface DeckAttributes {
     id: string;
-    user__id: string;
+    userId: string;
     name: string;
-    recto_language__id: string;
-    verso_language__id: string;
-    display_recto_first: boolean;
+    rectoLanguageId: string;
+    versoLanguageId: string;
+    displayRectoFirst: boolean;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 interface DeckInstance extends Model<DeckAttributes>, DeckAttributes {}
@@ -18,42 +20,56 @@ const DeckModel = database.define<DeckInstance>(
     {
         id: {
             type: UUID,
+            allowNull: false,
             defaultValue: UUIDV4,
             primaryKey: true,
-            allowNull: false
+            field: 'id'
         },
-        user__id: {
+        userId: {
             type: UUID,
-            allowNull: false
+            allowNull: false,
+            field: 'user__id'
         },
         name: {
             type: STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'name'
         },
-        recto_language__id: {
+        rectoLanguageId: {
             type: UUID,
-            allowNull: false
+            allowNull: false,
+            field: 'recto_language__id'
         },
-        verso_language__id: {
+        versoLanguageId: {
             type: UUID,
-            allowNull: false
+            allowNull: false,
+            field: 'verso_language__id'
         },
-        display_recto_first: {
+        displayRectoFirst: {
             type: BOOLEAN,
             allowNull: false,
-            defaultValue: true
+            defaultValue: true,
+            field: 'display_recto_first'
+        },
+        createdAt: {
+            type: DATE,
+            allowNull: false,
+            field: 'created_at'
+        },
+        updatedAt: {
+            type: DATE,
+            allowNull: false,
+            field: 'updated_at'
         }
     },
     {
         tableName: 'deck',
-        timestamps: true,
-        createdAt: 'created_at',
-        updatedAt: 'updated_at'
+        timestamps: true
     }
 );
 
 // Defining Deck and Language many-to-one associations
-DeckModel.belongsTo(LanguageModel, {foreignKey: 'recto_language__id'});
-DeckModel.belongsTo(LanguageModel, {foreignKey: 'verso_language__id'});
+DeckModel.belongsTo(LanguageModel, {foreignKey: 'rectoLanguageId'});
+DeckModel.belongsTo(LanguageModel, {foreignKey: 'versoLanguageId'});
 
 export default DeckModel;

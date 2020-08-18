@@ -3,7 +3,7 @@ import {Model, STRING, UUID, UUIDV4} from 'sequelize';
 
 interface FontAttributes {
     id: string;
-    user__id: string;
+    userId: string;
     name: string;
     source: string;
 }
@@ -17,19 +17,23 @@ const FontModel = database.define<FontInstance>(
             type: UUID,
             defaultValue: UUIDV4,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
+            field: 'id'
         },
-        user__id: {
+        userId: {
             type: UUID,
-            allowNull: true
+            allowNull: true,
+            field: 'user__id'
         },
         name: {
             type: STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'name'
         },
         source: {
             type: STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'source'
         }
     },
     {

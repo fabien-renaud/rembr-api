@@ -1,6 +1,8 @@
 export type Card = {
     id: string;
-    deck__id: string;
-    recto_value: string;
-    verso_value: string;
+    deckId: string;
+    rectoValue: string;
+    versoValue: string;
+    createdAt: Date;
+    updatedAt: Date;
 };

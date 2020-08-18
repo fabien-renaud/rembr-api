@@ -1,8 +1,10 @@
 export type Deck = {
     id: string;
-    user__id: string;
+    userId: string;
     name: string;
-    recto_language__id: string;
-    verso_language__id: string;
-    display_recto_first: boolean;
+    rectoLanguageId: string;
+    versoLanguageId: string;
+    displayRectoFirst: boolean;
+    createdAt: Date;
+    updatedAt: Date;
 };

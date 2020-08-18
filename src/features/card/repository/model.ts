@@ -1,12 +1,14 @@
 import database from '../../../core/database';
-import {Model, STRING, UUID, UUIDV4} from 'sequelize';
+import {Model, DATE, STRING, UUID, UUIDV4} from 'sequelize';
 import DeckModel from '../../deck/repository/model';
 
 interface CardAttributes {
     id: string;
-    deck__id: string;
-    recto_value: string;
-    verso_value: string;
+    deckId: string;
+    rectoValue: string;
+    versoValue: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 interface CardInstance extends Model<CardAttributes>, CardAttributes {}
@@ -16,32 +18,44 @@ const CardModel = database.define<CardInstance>(
     {
         id: {
             type: UUID,
+            allowNull: false,
             defaultValue: UUIDV4,
             primaryKey: true,
-            allowNull: false
+            field: 'id'
         },
-        deck__id: {
+        deckId: {
             type: UUID,
-            allowNull: false
+            allowNull: false,
+            field: 'deck__id'
         },
-        recto_value: {
+        rectoValue: {
             type: STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'recto_value'
         },
-        verso_value: {
+        versoValue: {
             type: STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'verso_value'
+        },
+        createdAt: {
+            type: DATE,
+            allowNull: false,
+            field: 'created_at'
+        },
+        updatedAt: {
+            type: DATE,
+            allowNull: false,
+            field: 'updated_at'
         }
     },
     {
         tableName: 'card',
-        timestamps: true,
-        createdAt: 'created_at',
-        updatedAt: 'updated_at'
+        timestamps: true
     }
 );
 
 // Defining Card and Deck many-to-many association
-CardModel.belongsTo(DeckModel, {foreignKey: 'deck__id'});
+CardModel.belongsTo(DeckModel, {foreignKey: 'deckId'});
 
 export default CardModel;
