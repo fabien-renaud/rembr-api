@@ -5,18 +5,22 @@ import {Deck} from '../types';
 import {Card} from '../../card/types';
 
 const fetchDecks = (): Promise<Deck[]> => {
-    return DeckModel.findAll();
+    const options: FindOptions = {
+        include: ['rectoLanguage', 'versoLanguage']
+    };
+    return DeckModel.findAll(options);
 };
 
 const fetchDeckById = (id: string): Promise<Deck> => {
-    return DeckModel.findByPk(id);
+    const options: FindOptions = {
+        include: ['rectoLanguage', 'versoLanguage']
+    };
+    return DeckModel.findByPk(id, options);
 };
 
 const fetchCardDeckById = (id: string): Promise<Card[]> => {
     const options: FindOptions = {
-        where: {
-            deck__id: id
-        }
+        where: {deck__id: id}
     };
     return CardModel.findAll(options);
 };

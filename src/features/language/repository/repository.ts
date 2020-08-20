@@ -1,13 +1,19 @@
-import {DestroyOptions, UpdateOptions} from 'sequelize';
+import {DestroyOptions, FindOptions, UpdateOptions} from 'sequelize';
 import LanguageModel from './model';
 import {Language} from '../types';
 
 const fetchLanguages = (): Promise<Language[]> => {
-    return LanguageModel.findAll();
+    const options: FindOptions = {
+        include: ['defaultFont']
+    };
+    return LanguageModel.findAll(options);
 };
 
 const fetchLanguageById = (id: string): Promise<Language> => {
-    return LanguageModel.findByPk(id);
+    const options: FindOptions = {
+        include: ['defaultFont']
+    };
+    return LanguageModel.findByPk(id, options);
 };
 
 const createLanguage = (language: Language): Promise<Language | null> => {

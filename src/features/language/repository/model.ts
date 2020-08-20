@@ -40,6 +40,9 @@ const LanguageModel = database.define<LanguageInstance>(
 );
 
 // Defining Deck and Language many-to-one associations
-LanguageModel.belongsTo(FontModel, {foreignKey: 'defaultFontId'});
+LanguageModel.belongsTo(FontModel, {
+    as: 'defaultFont',
+    foreignKey: 'defaultFontId'
+});
 
 export default LanguageModel;

@@ -69,7 +69,13 @@ const DeckModel = database.define<DeckInstance>(
 );
 
 // Defining Deck and Language many-to-one associations
-DeckModel.belongsTo(LanguageModel, {foreignKey: 'rectoLanguageId'});
-DeckModel.belongsTo(LanguageModel, {foreignKey: 'versoLanguageId'});
+DeckModel.belongsTo(LanguageModel, {
+    as: 'rectoLanguage',
+    foreignKey: 'rectoLanguageId'
+});
+DeckModel.belongsTo(LanguageModel, {
+    as: 'versoLanguage',
+    foreignKey: 'versoLanguageId'
+});
 
 export default DeckModel;
